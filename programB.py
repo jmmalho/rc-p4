@@ -28,7 +28,7 @@ for i in range(track_nr):
 
 	file_track = fileName + str(i);
 
-	f = open(file_track, "wb")
+	f = open(file_track, "w")
 
 	for j in range(segments_nr):
 		track_name = data[offset + 1]
@@ -38,12 +38,15 @@ for i in range(track_nr):
 		segment = segment.split(" ")
 
 		final_bytes = str(int(segment[0]) + int(segment[1])-1)
-		headers = {"Range":"bytes="+segment[0]+"-"+final_bytes}
+		headers = {
+    		"Range": f"bytes={segment[0]}-{final_bytes}",
+		}
 		r = requests.get(totalUrl, headers=headers)
-		print(len(r.content))
-		f.write(r.content)
 
 	time_final = time.time()
-	print(time_final - time_init)
+	timeSpent = time_final - time_init
+	bytesRate = int(final_bytes) / (time_final - time_init)
+	print("Download time " + str(timeSpent) + " in seconds for track "+ str(i))
+	print("Download rate " + str(bytesRate) + " in bytes/seconds for track "+ str(i))
 	offset += segments_nr + header_size
 	f.close()
