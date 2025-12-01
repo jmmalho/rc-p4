@@ -28,11 +28,10 @@ for i in range(track_nr):
 	bytes = 0
 	time_init = time.time()
 
+	track_name = data[offset + 1]
+	totalUrl = "http://" + url + "/" + movieName + "/" + track_name
+
 	for j in range(segments_nr):
-
-		track_name = data[offset + 1]
-
-		totalUrl = "http://" + url + "/" + movieName + "/" + track_name
 
 		segment = data[offset + header_size + j + 1]
 
