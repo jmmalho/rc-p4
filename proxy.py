@@ -79,7 +79,7 @@ splitHostPort = url.split(":")
 
 sck = socket.socket(socket.AF_INET,socket.SOCK_STREAM)
 
-sck.connect(("",8000))
+sck.connect(("0.0.0.0",8000))
 
 queue = Queue()
 
